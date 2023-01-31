@@ -757,6 +757,7 @@ impl<T: OAS + Serialize> ActiveScan<T> {
     }
     pub async fn check_broken_object(&self, auth: &Authorization) -> CheckRetVal {
         println!("pop");
+        dbg!(&auth);
         let _h: Vec<MHeader> = vec![MHeader::from("content-type", "application/json")];
 
         let mut ret_val = CheckRetVal::default();

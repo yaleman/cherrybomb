@@ -170,13 +170,13 @@ impl_active_checks![
     //     "BROKEN OBJECT LEVEL AUTHORIZATION",
     //     "Check if object is vulnerable to level authorization"
     // ),
-    // // (
-    // //     CheckForSQLInjectionsPOST,
-    // //     check_sqli_post,
-    // //     reflected_and_2xx,
-    // //     "SQL Injection for POST",
-    // //     "Check if the endpoint is vulnerable to sql injection"
-    // // ),
+    // (
+    //     CheckForSQLInjectionsPOST,
+    //     check_sqli_post,
+    //     reflected_and_2xx,
+    //     "SQL Injection for POST",
+    //     "Check if the endpoint is vulnerable to sql injection"
+    // ),
     // (
     //     CheckForSQLInjections,
     //     check_sqli,
@@ -190,7 +190,7 @@ impl_active_checks![
     //     is_2xx,
     //     "Check Content-type header",
     //     "Check if the endpoint can be send with other content type"
-    // ),
+   // ),
     (
         CheckIDOR,
         check_broken_object,

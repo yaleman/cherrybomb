@@ -1,3 +1,5 @@
+use crate::config::AuthType;
+
 use super::*;
 use base64::encode;
 use serde::{Deserialize, Serialize};
@@ -42,20 +44,25 @@ impl Default for Authorization {
     }
 }
 impl Authorization {
-    pub fn from_parts(tp: &str, value: String) -> Self {
+    pub fn from_parts(tp: &AuthType, value: String) -> Self {
         match tp {
-            "0" => {
+            AuthType::Basic => {
                 let vals: Vec<&str> = value.split(':').collect();
                 Self::Authorization(Auth::Basic(vals[0].to_string(), vals[1].to_string()))
             }
-            "1" => Self::Authorization(Auth::Bearer(value)),
-            "2" => Self::JWT(value),
-            "3" => Self::APIKey(value),
+            AuthType::Bearer => Self::Authorization(Auth::Bearer(value)),
+            /* 
+            AuthType::Header => Self::Authorization(Auth::d)),
+
+            
+            "2" => Self::Authorization(JWT(value)),
+            "cookie" => Self::Authorization(Cookie(value)),
             "4" => Self::APIKey(value),
             "5" => {
                 let vals: Vec<&str> = value.split(',').collect();
-                Self::Custom(Custom::from_3_vals(vals))
+                Self::Authorization(Custom(Custom::from_3_vals(vals)))
             }
+            */
             _ => Self::None,
         }
     }

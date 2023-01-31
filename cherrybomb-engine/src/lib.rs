@@ -109,8 +109,11 @@ async fn run_active_profile(
     // Running active scan
     verbose_print(config, None, "Running active scan...");
     let temp_auth = Authorization::None;
+    let auth = config.security.get(0).unwrap();
+    
+    let a = Authorization::from_parts(&auth.auth_type, auth.auth_value.to_string());
     active_scan
-        .run(active_scanner::ActiveScanType::Full, &temp_auth)
+        .run(active_scanner::ActiveScanType::Full, &a)
         .await;
     let active_result: HashMap<&str, Vec<Alert>> = active_scan
         .checks

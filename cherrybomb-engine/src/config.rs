@@ -40,11 +40,11 @@ pub enum Verbosity {
 pub struct Auth {
     /// Authentication type
     #[arg(long = "type", value_enum)]
-    auth_type: AuthType,
+    pub auth_type: AuthType,
     /// Entire String to use as the value
     /// (header-name: header-value / cookie-name: cookie-value / bearer-token)
     #[arg(long = "value")]
-    auth_value: String,
+    pub auth_value: String,
     /// Name of the scope matching the security scheme
     #[arg(long = "scope")]
     auth_scope: Option<String>,

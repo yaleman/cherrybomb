@@ -73,6 +73,7 @@ pub async fn send_req(
     auth: &Authorization,
     server: &Option<Vec<Server>>,
 ) -> Vec<String> {
+    dbg!(&auth);
     let mut collection_of_values: Vec<String> = Vec::new();
     let req = AttackRequest::builder()
         .uri(server, &path)
@@ -83,6 +84,7 @@ pub async fn send_req(
         .auth(auth.clone())
         .build();
     let res = req.send_request_with_response().await;
+    dbg!(&res);
     if res.1 {
         let object: Value = serde_json::from_str(&res.0).unwrap_or_default();
         if let Some(i) = object.as_array() {
@@ -92,7 +94,7 @@ pub async fn send_req(
             }
         }
     }
-    collection_of_values
+    dbg!(collection_of_values)
 }
 
 pub fn read_json_func(obj: &Value, element: &String, vector: &mut Vec<String>) -> Vec<String> {

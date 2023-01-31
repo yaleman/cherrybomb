@@ -85,6 +85,7 @@ impl<T: OAS + Serialize + for<'de> Deserialize<'de>> ActiveScan<T> {
 
     pub async fn run(&mut self, tp: ActiveScanType, auth: &Authorization) {
         self.path_params = Self::create_hash(self, auth).await;
+        dbg!(&self.path_params);
         match tp {
             ActiveScanType::Full => {
                 for check in ActiveChecks::iter() {
