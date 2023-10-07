@@ -6,7 +6,6 @@ use serde::{Deserialize, Serialize};
 use serde_json::{Map, Value};
 use std::fs::File;
 use std::io::Write;
-use std::option;
 use std::process::ExitCode;
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -59,6 +58,7 @@ fn to_format(vec_raw: &mut Vec<String>) -> String {
 #[derive(PartialEq)]
 enum CheckStatus {
     OK,
+    #[allow(dead_code)]
     Warning,
     Fail,
 }
@@ -172,6 +172,7 @@ fn print_param_table(json_struct: &Map<String, Value>) -> anyhow::Result<()> {
     Ok(())
 }
 
+#[allow(dead_code)]
 fn print_alert_table(json_struct: &Map<String, Value>) -> anyhow::Result<CheckStatus> {
     //display simple table  with alerts
     let mut table = Table::new();

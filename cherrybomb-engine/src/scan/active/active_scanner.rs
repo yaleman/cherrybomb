@@ -87,7 +87,7 @@ impl<T: OAS + Serialize + for<'de> Deserialize<'de>> ActiveScan<T> {
         self.path_params = Self::create_hash(self, auth).await;
         match tp {
             ActiveScanType::Full => {
-                println!("{:?}",ActiveChecks::iter().collect::<Vec<ActiveChecks>>());
+                println!("{:?}", ActiveChecks::iter().collect::<Vec<ActiveChecks>>());
                 for check in ActiveChecks::iter() {
                     self.checks.push(self.run_check(check, auth).await);
                 }
@@ -304,6 +304,7 @@ impl<T: OAS + Serialize + for<'de> Deserialize<'de>> ActiveScan<T> {
 }
 
 impl ActiveChecks {
+    #[allow(dead_code)]
     pub fn parse_check_list(list: Vec<String>, exclude: bool) -> Vec<ActiveChecks> {
         let mut checks = Vec::new();
         for check in list.iter() {

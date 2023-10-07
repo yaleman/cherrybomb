@@ -171,6 +171,7 @@ pub struct EpTable {
     servers: Vec<String>,
 }
 impl EpTable {
+    #[allow(dead_code)]
     pub fn path_only(&self, path: &str) -> Self {
         let eps = self
             .eps

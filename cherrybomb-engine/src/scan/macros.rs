@@ -16,6 +16,7 @@ macro_rules! impl_passive_checks{
                     _=>None,
                 }
             }
+            #[allow(dead_code)]
             pub fn description(&self)->&'static str{
                 match &self{
                     $(
@@ -67,6 +68,7 @@ macro_rules! impl_active_checks{
             )*
         }
         impl ActiveChecks{
+            #[allow(dead_code)]
             pub fn description(&self)->&'static str{
                 match &self{
                     $(
