@@ -25,7 +25,13 @@ impl Reference {
             for s in split {
                 val = &val[s];
             }
-            serde_json::from_value(val.clone()).unwrap()
+            match serde_json::from_value(val.clone()) {
+                Ok(val) => val,
+                Err(err) => {
+                    eprintln!("Failed to parse reference '{}': {:?}", val, err);
+                    T::default()
+                }
+            }
         } else {
             todo!(
                 "external references are not supported yet: {:?}",
