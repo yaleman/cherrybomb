@@ -77,8 +77,9 @@ macro_rules! impl_active_checks{
                 }
             }
             pub fn from_string(str1:&str)->Option<Self>{
-                match str1{
+                match str1 {
                     $(
+                        #[allow(unreachable_patterns)] // because macros
                         $name=>Some(ActiveChecks::$check((vec![],AttackLog::default()))),
                     )*
                     _=>None,

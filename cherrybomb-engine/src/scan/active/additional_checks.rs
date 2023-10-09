@@ -536,7 +536,10 @@ impl<T: OAS + Serialize> ActiveScan<T> {
                         .map(|(index, _)| index)
                         .collect::<Vec<_>>();
                     for i in indices {
-                        let param_query_pollute = vec_param.get(i).unwrap().clone();
+                        let param_query_pollute = match vec_param.get(i) {
+                            Some(v) => v.to_owned(),
+                            None => continue,
+                        };
                         vec_param.push(param_query_pollute);
                         let req = AttackRequest::builder()
                             .servers(self.oas.servers(), true)

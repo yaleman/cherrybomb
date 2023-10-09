@@ -49,17 +49,23 @@ pub fn create_payload(
         }
     }
 
-    if placeholder.as_ref().is_some() {
-        //   println!("THe placeholder is some");
-        // if there is a placeholder value, used  in ssrf or redirection for example
-        if !placeholder.clone().unwrap().eq("") {
-            //empty quote in placeholder are used only to create a path parameter payload.
-            //if there is  placeholder and the value  exist in the hashmap so let's call the second method for paylaod redirection or pollution.
+    match placeholder {
+        Some(placeholder) => {
+            if !placeholder.eq("") {
+                // empty quotes in placeholder are used only to create a path parameter payload.
+                // there is a placeholder and the value exists in the hashmap so let's call the second method for paylaod redirection or pollution.
+                return create_payload_for_get(
+                    swagger,
+                    op,
+                    Some(placeholder.into()),
+                    &mut params_vec,
+                );
+            }
+        }
+        None => {
+            // The placeholder is none for pollution
             return create_payload_for_get(swagger, op, placeholder, &mut params_vec);
         }
-    } else {
-        //The placeholder is none for pollution
-        return create_payload_for_get(swagger, op, placeholder, &mut params_vec);
     }
     //println!("END");
 

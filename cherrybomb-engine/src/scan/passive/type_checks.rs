@@ -115,18 +115,23 @@ impl<T: OAS + Serialize> PassiveTypeScan for PassiveSwaggerScan<T> {
                     location.clone(),
                 ));
             }
-            if schema.properties.is_none() {
-                alerts.push(Alert::new(
-                    Level::Low,
-                    "Object schema without properties",
-                    location.clone(),
-                ));
-            } else if schema.properties.unwrap().is_empty() {
-                alerts.push(Alert::new(
-                    Level::Low,
-                    "Object schema without properties",
-                    location,
-                ));
+            match schema.properties {
+                Some(properties) => {
+                    if properties.is_empty() {
+                        alerts.push(Alert::new(
+                            Level::Low,
+                            "Object schema without properties",
+                            location,
+                        ));
+                    }
+                }
+                None => {
+                    alerts.push(Alert::new(
+                        Level::Low,
+                        "Object schema without properties",
+                        location.clone(),
+                    ));
+                }
             }
         }
         let schemas = get_schemas_by_type(&self.swagger, &self.swagger_value, "");
@@ -145,18 +150,23 @@ impl<T: OAS + Serialize> PassiveTypeScan for PassiveSwaggerScan<T> {
                     location.clone(),
                 ));
             }
-            if schema.properties.is_none() {
-                alerts.push(Alert::new(
-                    Level::Low,
-                    "Object schema without properties",
-                    location.clone(),
-                ));
-            } else if schema.properties.unwrap().is_empty() {
-                alerts.push(Alert::new(
-                    Level::Low,
-                    "Object schema without properties",
-                    location,
-                ));
+            match schema.properties {
+                Some(properties) => {
+                    if properties.is_empty() {
+                        alerts.push(Alert::new(
+                            Level::Low,
+                            "Object schema without properties",
+                            location,
+                        ));
+                    }
+                }
+                None => {
+                    alerts.push(Alert::new(
+                        Level::Low,
+                        "Object schema without properties",
+                        location.clone(),
+                    ));
+                }
             }
         }
         alerts

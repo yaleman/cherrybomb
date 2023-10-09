@@ -169,29 +169,29 @@ impl PathItem {
     }
     pub fn get_ops(&self) -> Vec<(Method, &Operation)> {
         let mut vec_op = vec![];
-        if self.get.is_some() {
-            vec_op.push((Method::GET, self.get.as_ref().unwrap()));
+        if let Some(get) = &self.get {
+            vec_op.push((Method::GET, get));
         }
-        if self.put.is_some() {
-            vec_op.push((Method::PUT, self.put.as_ref().unwrap()));
+        if let Some(put) = &self.put {
+            vec_op.push((Method::PUT, put));
         }
-        if self.post.is_some() {
-            vec_op.push((Method::POST, self.post.as_ref().unwrap()));
+        if let Some(post) = &self.post {
+            vec_op.push((Method::POST, post));
         }
-        if self.delete.is_some() {
-            vec_op.push((Method::DELETE, self.delete.as_ref().unwrap()));
+        if let Some(delete) = &self.delete {
+            vec_op.push((Method::DELETE, delete));
         }
-        if self.options.is_some() {
-            vec_op.push((Method::OPTIONS, self.options.as_ref().unwrap()));
+        if let Some(options) = &self.options {
+            vec_op.push((Method::OPTIONS, options));
         }
-        if self.head.is_some() {
-            vec_op.push((Method::HEAD, self.head.as_ref().unwrap()));
+        if let Some(head) = &self.head {
+            vec_op.push((Method::HEAD, head));
         }
-        if self.patch.is_some() {
-            vec_op.push((Method::PATCH, self.patch.as_ref().unwrap()));
+        if let Some(patch) = &self.patch {
+            vec_op.push((Method::PATCH, patch));
         }
-        if self.trace.is_some() {
-            vec_op.push((Method::TRACE, self.trace.as_ref().unwrap()));
+        if let Some(trace) = &self.trace {
+            vec_op.push((Method::TRACE, trace));
         }
         vec_op
     }

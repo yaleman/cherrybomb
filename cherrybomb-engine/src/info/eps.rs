@@ -49,7 +49,7 @@ impl EpForTable {
         if let Some(ref t) = schema.title {
             t.to_string()
         } else if let SchemaRef::Ref(r) = s_ref {
-            r.param_ref.split('/').last().unwrap().to_string()
+            r.param_ref.split('/').last().unwrap_or("").to_string()
         } else if let Some(n) = name {
             n.to_string()
         } else {
@@ -186,9 +186,15 @@ impl EpTable {
     }
     pub fn new<T>(value: &Value) -> Self
     where
-        T: OAS + Clone + Serialize + for<'de> serde::Deserialize<'de>,
+        T: OAS + Default + Clone + Serialize + for<'de> serde::Deserialize<'de>,
     {
-        let oas = serde_json::from_value::<T>(value.clone()).unwrap();
+        let oas = match serde_json::from_value::<T>(value.clone()) {
+            Ok(oas) => oas,
+            Err(e) => {
+                println!("Error parsing eptable value '{}': {}", value, e);
+                T::default()
+            }
+        };
         let eps: Vec<EpForTable> = oas
             .get_paths()
             .iter()

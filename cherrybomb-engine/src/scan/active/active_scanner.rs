@@ -248,7 +248,7 @@ impl<T: OAS + Serialize + for<'de> Deserialize<'de>> ActiveScan<T> {
         if let Some(ref t) = schema.title {
             t.to_string()
         } else if let SchemaRef::Ref(r) = s_ref {
-            r.param_ref.split('/').last().unwrap().to_string()
+            r.param_ref.split('/').last().unwrap_or("").to_string()
         } else if let Some(n) = name {
             n.to_string()
         } else {

@@ -136,7 +136,13 @@ impl<T: OAS + Serialize> PassiveGeneralScan for PassiveSwaggerScan<T> {
     }
     fn check_unused_schema(&self) -> Vec<Alert> {
         let mut alerts = vec![];
-        let swagger_str = serde_json::to_string(&self.swagger).unwrap();
+        let swagger_str = match serde_json::to_string(&self.swagger) {
+            Ok(s) => s,
+            Err(err) => {
+                eprintln!("Failed to parse unused schema: {:?}", err);
+                return alerts;
+            }
+        };
         if let Some(comps) = &self.swagger.components() {
             if let Some(schemas) = &comps.schemas {
                 for name in schemas.keys() {
